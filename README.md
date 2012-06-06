@@ -1,4 +1,4 @@
 nodejs
 ======
 
-The examples are creating by using socket.io on node.js
+The examples are created by using socket.io on node.js
