@@ -1,0 +1,52 @@
+<html>
+<head>
+	<title>hello</title>
+	<style type="text/css">
+		#result{
+			border:2px solid #000;
+			width:200px;
+			height:400px;
+		}
+	</style>
+	
+	<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+	<script>
+		function initFunction(){
+			document.getElementById('bt_username').onclick = getUsername;
+		}
+		
+		var username = "";
+		
+		var socket = io.connect('http://localhost:8080');
+		
+		function getUsername(){
+			username = document.getElementById('username').value;
+			
+			document.getElementById('result').innerHTML = username;	
+			socket.emit('displayname', username);
+		}
+	
+		socket.on('updatename', function (username){
+			document.getElementById('result').innerHTML = username;
+		});
+			
+	</script>
+	
+</head>
+
+<body onload="initFunction()">
+	
+</body>
+	<div id="wrapper">
+		
+		<div id="form">
+			Enter your name :- <input type="tex" name="username" id="username" vlaue="" />
+			<input type="button" id="bt_username" value="display name" />
+		</div>
+		
+		<div id="result">
+			
+		</div>
+		
+	</div>
+</html>
