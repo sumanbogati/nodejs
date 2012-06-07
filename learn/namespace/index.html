@@ -1,0 +1,45 @@
+<html>
+<head>
+<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+
+<script>
+
+//we are defining the variable here like so because we defined 'var usa = io.of('/usa');' at server.js 
+var usa = io.connect('http://localhost:8080/usa'); 
+
+var india = io.connect('http://localhost:8080/india');
+
+usa.on('ustudyprocess', function (data){
+		console.log(data['school']);  
+		console.log(data['tablet']);		
+  	}
+);
+
+
+india.on('istudyprocess', function (data){
+		console.log(data['school']);  
+		console.log(data['tablet']);		
+  	}
+);
+
+
+// this will not work because the "istudyprocess" is the property
+// of india namespace(particular socket), so console message would not be 
+// display at console of firebug
+
+usa.on('istudyprocess', function (data){
+		console.log(data['school']);  
+		console.log(data['tablet']);		
+  	}
+);
+
+    
+  </script>
+
+</head>
+
+<body>
+hello
+</body>
+
+</html>
