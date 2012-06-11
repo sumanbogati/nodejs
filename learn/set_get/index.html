@@ -1,0 +1,48 @@
+<html>
+<head>
+	<script src="http://localhost:8082/socket.io/socket.io.js"></script>
+	
+	<script>
+		
+		var socket = io.connect('http://localhost:8082');
+		
+		//when server send the information about user to all clients except himself
+		socket.on('putInfo', function (info){
+			document.getElementById('classroom').innerHTML = "Group Name :" + info['groupname'] + " User Name :" + info['username'];
+		});
+		
+		window.onload = function(){
+			document.getElementById('enterClass').onclick = enterClass;
+		}
+		
+		function enterClass(){
+			var groupname = prompt("what is your group name");
+			var username = prompt("what is your user name");
+			
+			socket.emit('setGroupName', groupname);
+			socket.emit('setUserName', username);
+			
+			
+			document.getElementById('classroom').innerHTML = "Group Name: " + groupname + " User Name: " + username;
+			socket.emit('displayInfo');
+		}
+		
+	</script>
+	
+	<style type="text/css">
+		#classroom{
+			width:250px;
+			height:350px;
+			border:2px solid #ddd;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="container">
+			<input type="button" id="enterClass" value="Enter Class Room" />
+			<div id="classroom"></div>
+	</div>
+</body>
+
+</html>
